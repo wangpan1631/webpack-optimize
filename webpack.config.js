@@ -1,6 +1,6 @@
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-
+let webpack = require('webpack');
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
@@ -9,6 +9,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
+        new webpack.IgnorePlugin(/\.\/local/, /moment/), // 忽略这个模块的打包
         new HtmlWebpackPlugin({
             template: './public/index.html'
         })
@@ -18,6 +19,8 @@ module.exports = {
         rules: [
             {
                 test:/\.js$/,
+                exclude: /node_modules/, // 不包含的目录
+                include: path.resolve('src'), // 包含的目录
                 use: {
                     loader: 'babel-loader',
                     options: {
