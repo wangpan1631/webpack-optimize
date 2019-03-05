@@ -30,3 +30,12 @@ module.exports = {
     ]
 }
 ```
+4. 
+```
+output: {
+    filename: '[name].js',
+    path: path.resoleve(__dirname, 'dist'),
+    library: 'ab', //知道打包后的结果赋值给ab
+    libraryTarget: 'umd' // can be commonjs  umd var this and so on
+}
+```
