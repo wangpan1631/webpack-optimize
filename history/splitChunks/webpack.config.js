@@ -2,10 +2,29 @@ let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let webpack = require('webpack');
 module.exports = {
+    optimization: {
+        splitChunks: { // 分隔代码块
+            cacheGroups: { // 缓存组
+                common: {
+                    chunks: 'initial',
+                    minSize: 0,
+                    minChunks: 2
+                }
+            },
+            // vendor: { // 第三方模块   // 3.7加上这个报错~~~
+            //     priority: 1, //权重
+            //     test: /node_modules/, // 抽离出来
+            //     chunks: 'initial',
+            //     minSize: 0,
+            //     minChunks: 2
+            // }
+        }
+    },
     mode: 'development',
     // entry: './src/index.js',
     entry: {
-        'index': './src/index.js'
+        'index': './src/index.js',
+        'other': './src/other.js'
     },
     output: {
         filename: '[name].js',
@@ -30,8 +49,7 @@ module.exports = {
                         presets: [
                             '@babel/preset-env',
                             '@babel/preset-react'
-                        ],
-                        plugins: ['@babel/plugin-syntax-dynamic-import']
+                        ]
                     }
                 }
             }
